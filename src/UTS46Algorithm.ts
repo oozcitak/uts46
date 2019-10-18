@@ -21,6 +21,11 @@ export type ToASCIIOptions = ProcessOptions & {
 }
 
 /**
+ * Represents Unicode conversion options.
+ */
+export type ToUnicodeOptions = ProcessOptions
+
+/**
  * Represents validation options.
  */
 type ValidateOptions = ProcessOptions & {
@@ -270,7 +275,7 @@ export function toASCII(domainName: string, { useSTD3ASCIIRules = true,
  */
 export function toUnicode(domainName: string, { useSTD3ASCIIRules = true,
   checkHyphens = true, checkBidi = true, checkJoiners = true,
-  transitionalProcessing = true }: ProcessOptions = { }, 
+  transitionalProcessing = true }: ToUnicodeOptions = { }, 
   output: { errors: boolean } = { errors: false }): string {
   /**
    * 1. To the input domain_name, apply the Processing Steps in Section 4,
