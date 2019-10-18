@@ -46,7 +46,7 @@ export class IDNAMappingTable {
    * Gets a value from the lookup table.
    */
   get(key: number): [Status, number[], IDNA2008Status] {
-    if (!this._tableInit) this._init()
+    this._init()
     const item = this._table.get(key)
     if (item === undefined) {
       throw new Error(`Code point: ${key} not found in IDNA Mapping table.`)
