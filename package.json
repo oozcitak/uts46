@@ -50,6 +50,6 @@
   },
   "scripts": {
     "test": "tsc && jest --coverage",
-    "publish-public": "test && npm publish --access public"
+    "publish-public": "npm run test && npm publish --access public"
   }
 }
