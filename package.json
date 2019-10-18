@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "keywords": [
     "uts46",
-    "tr6",
+    "tr46",
     "unicode",
     "idna"
   ],
@@ -49,6 +49,7 @@
     ]
   },
   "scripts": {
-    "test": "tsc && jest --coverage"
+    "test": "tsc && jest --coverage",
+    "publish-public":"npm publish --access public"
   }
 }
