@@ -5,11 +5,35 @@ import { clone } from './util'
 /**
  * Represents processing options.
  */
-export type ProcessOptions = {
+type ProcessOptions = {
+  /**
+   * Determines whether to abide by the rules in 
+   * [STD3](http://www.rfc-editor.org/std/std3.txt). These rules exclude ASCII
+   * characters outside the set consisting of A-Z, a-z, 0-9, and U+002D ( - )
+   * HYPHEN-MINUS.
+   */
   useSTD3ASCIIRules?: boolean
+  /**
+   * Determines whether to allow a domain name label to start or end with a
+   * U+002D ( - ) HYPHEN-MINUS character and also to contain hyphen-minus in both
+   * its third and fourth characters.
+   */
   checkHyphens?: boolean
+  /**
+   * Determines whether to abide by the rules of 
+   * [RFC 5893](http://tools.ietf.org/html/rfc5893) for a bidirectional domain
+   * name.
+   */
   checkBidi?: boolean
+  /**
+   * Determines whether to abide by the rules of 
+   * [RFC 5892](http://tools.ietf.org/html/rfc5892) ContextJ rules.
+   */
   checkJoiners?: boolean
+  /**
+   * Determines whether to replace deviation characters in the domain name
+   * string.
+   */
   transitionalProcessing?: boolean
 }
 
@@ -17,6 +41,10 @@ export type ProcessOptions = {
  * Represents ASCII conversion options.
  */
 export type ToASCIIOptions = ProcessOptions & {
+  /**
+   * Determines whether to apply DNS length restrictions to the domain name
+   * string and its labels.
+   */
   verifyDnsLength?: boolean
 }
 
@@ -40,7 +68,7 @@ type ValidateOptions = ProcessOptions & {
  * @param options - processing options
  * @param output - determines if any errors were produced during processing
  */
-export function process(domainName: string, options: ProcessOptions, 
+function process(domainName: string, options: ProcessOptions, 
   output: { errors: boolean } = { errors: false }): string {
 
   output.errors = false
@@ -226,8 +254,8 @@ function validate(label: string, options: ValidateOptions): boolean {
  */
 export function toASCII(domainName: string, { useSTD3ASCIIRules = true,
   checkHyphens = true, checkBidi = true, checkJoiners = true,
-  transitionalProcessing = true, verifyDnsLength = true }: ToASCIIOptions = {}, 
-  output: { errors: boolean } = { errors: false }): string | null {
+  transitionalProcessing = true, verifyDnsLength = true }: ToASCIIOptions = {}
+  ): string | null {
   /**
    * 1. To the input domain_name, apply the Processing Steps in Section 4, 
    * Processing, using the input boolean flags Transitional_Processing, 
@@ -246,6 +274,7 @@ export function toASCII(domainName: string, { useSTD3ASCIIRules = true,
    * 6. Otherwise join the labels using U+002E FULL STOP as a separator, and 
    * return the result.
    */
+  const output = { errors: false }
   const result = punycodeToASCII(process(domainName, { useSTD3ASCIIRules, 
     checkHyphens, checkBidi, checkJoiners, transitionalProcessing }, output))
   

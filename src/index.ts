@@ -1,3 +1,3 @@
-export { 
-  process, toASCII, toUnicode, ProcessOptions, ToASCIIOptions, ToUnicodeOptions
+export {
+  toASCII, toUnicode, ToASCIIOptions, ToUnicodeOptions
 } from './UTS46Algorithm'
