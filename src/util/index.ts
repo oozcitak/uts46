@@ -3,7 +3,7 @@
  * 
  * @param obj - an object
  */
-export function clone<T>(obj: T): T {
+export function clone<T>(obj: any): T {
   if (isFunction(obj)) {
     return obj
   } else if (isArray(obj)) {
@@ -14,8 +14,11 @@ export function clone<T>(obj: T): T {
     return result
   } else if (isObject(obj)) {
     const result: any = {}
-    for (const [key, val] of Object.entries(obj)) {
-      result[key] = clone(val)
+    for (const key in obj) {
+      /* istanbul ignore else */
+      if (obj.hasOwnProperty(key)) {
+        result[key] = clone(obj[key])
+      }
     }
     return result
   } else {
