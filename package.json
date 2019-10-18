@@ -1,0 +1,54 @@
+{
+  "name": "@oozcitak/uts46",
+  "version": "1.0.0",
+  "keywords": [
+    "uts46",
+    "tr6",
+    "unicode",
+    "idna"
+  ],
+  "homepage": "http://github.com/oozcitak/uts46",
+  "description": "An implementation of Unicode IDNA Compatibility Processing (UTS 46)",
+  "author": "Ozgur Ozcitak <oozcitak@gmail.com>",
+  "contributors": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oozcitak/uts46.git"
+  },
+  "bugs": {
+    "url": "http://github.com/oozcitak/uts46/issues"
+  },
+  "main": "./lib/index",
+  "types": "lib/index.d.ts",
+  "engines": {
+    "node": ">=6.0"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "punycode": "2.1.1"
+  },
+  "devDependencies": {
+    "typescript": "*",
+    "jest": "*",
+    "ts-jest": "*",
+    "coveralls": "*",
+    "@types/node": "*",
+    "@types/jest": "*"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "/test/.*\\.test\\.tsx?$",
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ]
+  },
+  "scripts": {
+    "test": "tsc && jest --coverage"
+  }
+}
