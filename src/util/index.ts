@@ -3,7 +3,7 @@
  * 
  * @param obj - an object
  */
-export function clone<T>(obj: any): T {
+export function clone(obj: any): any {
   if (isFunction(obj)) {
     return obj
   } else if (isArray(obj)) {
