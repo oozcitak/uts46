@@ -2,6 +2,26 @@ import * as util from '../../src/util'
 
 describe('util', () => {
 
+  test('clone', () => {
+    expect(util.clone(1)).toBe(1)
+    expect(util.clone(true)).toBe(true)
+    expect(util.clone("x")).toBe("x")
+    expect(util.clone(["x"])).toEqual(["x"])
+    expect(util.clone({ x: "x" })).toEqual({ x: "x" })
+
+    const obj1 = {
+      a: 1,
+      b: [1, 2, 3],
+      c: "x",
+      d: (val: string): string => 'hello ' + val
+    }
+    const  obj2 = util.clone(obj1)
+    expect(obj2.a).toBe(1)
+    expect(obj2.b).toEqual([1, 2, 3])
+    expect(obj2.c).toBe("x")
+    expect(obj2.d("world")).toBe("hello world")
+  })
+
   test('isBoolean', () => {
     expect(util.isBoolean(true)).toBe(true)
     expect(util.isBoolean(true)).toBe(true)
