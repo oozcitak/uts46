@@ -1,4 +1,4 @@
-# infra
+# uts46
 A Javascript implementation of [Unicode IDNA Compatibility Processing (UTS 46)](http://www.unicode.org/reports/tr46/).
 
 [![License](http://img.shields.io/npm/l/@oozcitak/uts46.svg?style=flat-square)](http://opensource.org/licenses/MIT)
