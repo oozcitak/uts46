@@ -20,6 +20,13 @@ export type ToASCIIOptions = ProcessOptions & {
   verifyDnsLength?: boolean
 }
 
+/**
+ * Represents validation options.
+ */
+type ValidateOptions = ProcessOptions & {
+  checkNormalization?: boolean
+  checkDot?: boolean
+}
 
 /**
  * Processes a domain name string.
@@ -92,6 +99,10 @@ export function process(domainName: string, options: ProcessOptions,
   /**
    * 4. Convert/Validate. For each label in the domain_name string:
    */
+  const validateOptions = clone(options) as ValidateOptions
+  validateOptions.checkNormalization = false
+  validateOptions.checkDot = false
+  const transitionalProcessing = validateOptions.transitionalProcessing
   for (let i = 0; i < labels.length; i++) {
     let label = labels[i]
     if (label.startsWith("xn--")) {
@@ -112,9 +123,9 @@ export function process(domainName: string, options: ProcessOptions,
         output.errors = true
         continue
       }
-      const validateOptions = clone(options)
       validateOptions.transitionalProcessing = false
       if (!validate(label, validateOptions)) output.errors = true
+      validateOptions.transitionalProcessing = transitionalProcessing
   } else {
       /**
        * - If the label does not start with “xn--”:
@@ -137,11 +148,11 @@ export function process(domainName: string, options: ProcessOptions,
  * @param label - a label
  * @param options - processing options 
  */
-export function validate(label: string, options: ProcessOptions): boolean {
+function validate(label: string, options: ValidateOptions): boolean {
   /**
    * 1. The label must be in Unicode Normalization Form NFC.
    */
-  if (label.normalize("NFC") !== label) return false
+  if (options.checkNormalization && (label.normalize("NFC") !== label)) return false
 
   /**
    * 2. If CheckHyphens, the label must not contain a U+002D HYPHEN-MINUS 
@@ -158,7 +169,7 @@ export function validate(label: string, options: ProcessOptions): boolean {
   /**
    * 4. The label must not contain a U+002E ( . ) FULL STOP.
    */
-  if (/\./.test(label)) return false
+  if (options.checkDot && /\./.test(label)) return false
 
   /**
    * 5. The label must not begin with a combining mark, that is:
