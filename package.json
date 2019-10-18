@@ -1,6 +1,6 @@
 {
   "name": "@oozcitak/uts46",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "uts46",
     "tr46",
@@ -50,6 +50,6 @@
   },
   "scripts": {
     "test": "tsc && jest --coverage",
-    "publish-public":"npm publish --access public"
+    "publish-public": "npm publish --access public"
   }
 }
