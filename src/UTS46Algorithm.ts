@@ -236,7 +236,21 @@ function validate(label: string, options: ValidateOptions): boolean {
     if (cp === undefined) {
       throw new Error("Invalid code point.")
     }
-    const status = IDNAMappingTable.instance.get(cp)[0]
+    let status = IDNAMappingTable.instance.get(cp)[0]
+    /**
+     * Resolve STD3 status codes into Valid, Mapped or Disallowed
+     * - disallowed_STD3_valid: the status is disallowed if 
+     * UseSTD3ASCIIRules=true (the normal case); implementations that 
+     * allow UseSTD3ASCIIRules=false would treat the code point as valid.
+     * - disallowed_STD3_mapped: the status is disallowed if 
+     * UseSTD3ASCIIRules=true (the normal case); implementations that allow
+     * UseSTD3ASCIIRules=false would treat the code point as mapped.
+     */
+    if (status == Status.DisallowedSTD3Valid) {
+      status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Valid)
+    } else if (status === Status.DisallowedSTD3Mapped) {
+      status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Mapped)
+    }
     if (options.transitionalProcessing && status !== Status.Valid) return false
     if (!options.transitionalProcessing && status !== Status.Valid && 
       status !== Status.Deviation) return false
