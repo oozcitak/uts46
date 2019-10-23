@@ -95,10 +95,24 @@ function process(domainName: string, options: ProcessOptions,
       throw new Error("Invalid code point.")
     }
     const mapping = IDNAMappingTable.instance.get(cp)
-    switch (mapping[0]) {
+    let status = mapping[0]
+    /**
+     * Resolve STD3 status codes into Valid, Mapped or Disallowed
+     * - disallowed_STD3_valid: the status is disallowed if 
+     * UseSTD3ASCIIRules=true (the normal case); implementations that 
+     * allow UseSTD3ASCIIRules=false would treat the code point as valid.
+     * - disallowed_STD3_mapped: the status is disallowed if 
+     * UseSTD3ASCIIRules=true (the normal case); implementations that allow
+     * UseSTD3ASCIIRules=false would treat the code point as mapped.
+     */
+    if (status == Status.DisallowedSTD3Valid) {
+      status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Valid)
+    } else if (status === Status.DisallowedSTD3Mapped) {
+      status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Mapped)
+    }
+
+    switch (status) {
       case Status.Disallowed:
-      case Status.DisallowedSTD3Mapped:
-      case Status.DisallowedSTD3Valid:
         output. errors = true
         result += char
         break
