@@ -289,9 +289,13 @@ export function toASCII(domainName: string, { useSTD3ASCIIRules = true,
    * return the result.
    */
   const output = { errors: false }
-  const result = punycodeToASCII(process(domainName, { useSTD3ASCIIRules, 
-    checkHyphens, checkBidi, checkJoiners, transitionalProcessing }, output))
-  
+  const processedName = process(domainName, { useSTD3ASCIIRules, 
+    checkHyphens, checkBidi, checkJoiners, transitionalProcessing }, output)
+  if (output.errors) {
+    return null
+  }
+  const result = punycodeToASCII(processedName)
+
   if (verifyDnsLength) {
     const lengthExpectRoot = result.length - (result.indexOf('.') + 1)
     if (lengthExpectRoot < 1 || lengthExpectRoot > 253) {
