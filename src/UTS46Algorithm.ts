@@ -1,6 +1,6 @@
 import { IDNAMappingTable, Status } from './IDNAMappingTable'
 import { toASCII as punycodeToASCII, decode as punycodeDecode } from 'punycode'
-import { clone } from './util'
+import { clone } from '@oozcitak/util'
 
 /**
  * Represents processing options.
@@ -99,13 +99,13 @@ function process(domainName: string, options: ProcessOptions,
     /**
      * Resolve STD3 status codes into Valid, Mapped or Disallowed
      * - disallowed_STD3_valid: the status is disallowed if 
-     * UseSTD3ASCIIRules=true (the normal case); implementations that 
-     * allow UseSTD3ASCIIRules=false would treat the code point as valid.
+     *   UseSTD3ASCIIRules=true (the normal case); implementations that 
+     *   allow UseSTD3ASCIIRules=false would treat the code point as valid.
      * - disallowed_STD3_mapped: the status is disallowed if 
-     * UseSTD3ASCIIRules=true (the normal case); implementations that allow
-     * UseSTD3ASCIIRules=false would treat the code point as mapped.
+     *   UseSTD3ASCIIRules=true (the normal case); implementations that allow
+     *   UseSTD3ASCIIRules=false would treat the code point as mapped.
      */
-    if (status == Status.DisallowedSTD3Valid) {
+    if (status === Status.DisallowedSTD3Valid) {
       status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Valid)
     } else if (status === Status.DisallowedSTD3Mapped) {
       status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Mapped)
@@ -240,13 +240,13 @@ function validate(label: string, options: ValidateOptions): boolean {
     /**
      * Resolve STD3 status codes into Valid, Mapped or Disallowed
      * - disallowed_STD3_valid: the status is disallowed if 
-     * UseSTD3ASCIIRules=true (the normal case); implementations that 
-     * allow UseSTD3ASCIIRules=false would treat the code point as valid.
+     *   UseSTD3ASCIIRules=true (the normal case); implementations that 
+     *   allow UseSTD3ASCIIRules=false would treat the code point as valid.
      * - disallowed_STD3_mapped: the status is disallowed if 
-     * UseSTD3ASCIIRules=true (the normal case); implementations that allow
-     * UseSTD3ASCIIRules=false would treat the code point as mapped.
+     *   UseSTD3ASCIIRules=true (the normal case); implementations that allow
+     *   UseSTD3ASCIIRules=false would treat the code point as mapped.
      */
-    if (status == Status.DisallowedSTD3Valid) {
+    if (status === Status.DisallowedSTD3Valid) {
       status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Valid)
     } else if (status === Status.DisallowedSTD3Mapped) {
       status = (options.useSTD3ASCIIRules ? Status.Disallowed : Status.Mapped)

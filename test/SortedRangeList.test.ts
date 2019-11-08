@@ -1,4 +1,4 @@
-import { SortedRangeList } from '../../src/util'
+import { SortedRangeList } from '../src/SortedRangeList'
 
 describe('SortedRangeList', () => {
 

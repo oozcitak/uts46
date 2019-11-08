@@ -1,4 +1,4 @@
-import { SortedRangeList } from "./util"
+import { SortedRangeList } from "./SortedRangeList"
 
 export enum Status {
   Valid = 0,

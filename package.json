@@ -28,6 +28,7 @@
     "lib/**/*"
   ],
   "dependencies": {
+    "@oozcitak/util": "1.0.2",
     "punycode": "2.1.1"
   },
   "devDependencies": {
@@ -49,7 +50,7 @@
     ]
   },
   "scripts": {
-    "compile": "tsc",
+    "compile": "rm -rf ./lib && tsc --version && tsc",
     "test": "npm run compile && jest --coverage",
     "publish-public": "npm run test && npm publish --access public"
   }
