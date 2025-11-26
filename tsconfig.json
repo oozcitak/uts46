@@ -1,21 +1,18 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "declaration": true,
-        "lib": [
-            "es6"
-        ],
-        "locale": "en",
+        "lib": [ "es2023" ],
+        "module": "nodenext",
+        "target": "es2022",
+
         "strict": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "isolatedModules": true,
         "newLine": "lf",
         "sourceMap": true,
-        "esModuleInterop": true,
         "outDir": "lib",
-        "types": [
-            "node",
-            "jest"
-        ]
+        "types": [ "node" ],
+        "allowJs": true
     },
     "include": [
         "src/**/*"
