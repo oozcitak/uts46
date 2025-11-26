@@ -1,26 +1,28 @@
-import * as uts46 from '../src'
+import { suite, test } from 'node:test'
+import { strictEqual } from 'node:assert'
+import * as uts46 from '../lib/index.js'
 
-describe('UTS46Algorithm', () => {
+suite('UTS46Algorithm', () => {
 
   test('toUnicode - non-transitional', () => {
-    expect(uts46.toUnicode("fass.de", { transitionalProcessing: false })).toBe("fass.de")
-    expect(uts46.toUnicode("faß.de", { transitionalProcessing: false })).toBe("faß.de")
-    expect(uts46.toUnicode("Faß.de", { transitionalProcessing: false })).toBe("faß.de")
-    expect(uts46.toUnicode("xn--fa-hia.de", { transitionalProcessing: false })).toBe("faß.de")
+    strictEqual(uts46.toUnicode("fass.de", { transitionalProcessing: false }), "fass.de")
+    strictEqual(uts46.toUnicode("faß.de", { transitionalProcessing: false }), "faß.de")
+    strictEqual(uts46.toUnicode("Faß.de", { transitionalProcessing: false }), "faß.de")
+    strictEqual(uts46.toUnicode("xn--fa-hia.de", { transitionalProcessing: false }), "faß.de")
   })
 
   test('toASCII - transitional', () => {
-    expect(uts46.toASCII("fass.de")).toBe("fass.de")
-    expect(uts46.toASCII("faß.de")).toBe("fass.de")
-    expect(uts46.toASCII("Faß.de")).toBe("fass.de")
-    expect(uts46.toASCII("xn--fa-hia.de")).toBe("xn--fa-hia.de")
+    strictEqual(uts46.toASCII("fass.de"), "fass.de")
+    strictEqual(uts46.toASCII("faß.de"), "fass.de")
+    strictEqual(uts46.toASCII("Faß.de"), "fass.de")
+    strictEqual(uts46.toASCII("xn--fa-hia.de"), "xn--fa-hia.de")
   })
 
   test('toASCII - non-transitional', () => {
-    expect(uts46.toASCII("fass.de", { transitionalProcessing: false })).toBe("fass.de")
-    expect(uts46.toASCII("faß.de", { transitionalProcessing: false })).toBe("xn--fa-hia.de")
-    expect(uts46.toASCII("Faß.de", { transitionalProcessing: false })).toBe("xn--fa-hia.de")
-    expect(uts46.toASCII("xn--fa-hia.de", { transitionalProcessing: false })).toBe("xn--fa-hia.de")
+    strictEqual(uts46.toASCII("fass.de", { transitionalProcessing: false }), "fass.de")
+    strictEqual(uts46.toASCII("faß.de", { transitionalProcessing: false }), "xn--fa-hia.de")
+    strictEqual(uts46.toASCII("Faß.de", { transitionalProcessing: false }), "xn--fa-hia.de")
+    strictEqual(uts46.toASCII("xn--fa-hia.de", { transitionalProcessing: false }), "xn--fa-hia.de")
   })
 
 })
