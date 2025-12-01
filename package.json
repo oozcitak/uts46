@@ -38,7 +38,7 @@
   },
   "scripts": {
     "test": "tsc && tsx --test --experimental-test-coverage test/*test.ts",
-    "cover": "tsc && tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./coverage/lcov.info test/*test.ts",
+    "cover": "tsc && mkdir coverage && tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./coverage/lcov.info test/*test.ts",
     "publish-public": "tsc && npm run cover && npm publish --access public"
   }
 }
