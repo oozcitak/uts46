@@ -37,8 +37,8 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "test": "tsc && tsx --test --experimental-test-coverage \"test/*test.ts\"",
-    "cover": "tsc && mkdir coverage && tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./coverage/lcov.info \"test/*test.ts\"",
+    "test": "tsc && tsx --test \"**/*.test.ts\"",
+    "cover": "tsc && mkdir -p coverage && tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./coverage/lcov.info \"**/*.test.ts\"",
     "publish-public": "tsc && npm run cover && npm publish --access public"
   }
 }
