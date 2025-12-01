@@ -24,7 +24,7 @@ jobs:
         node-version: ${{ matrix.node }}
     - run: npm ci
     - run: npm test
-    - run: npm cover
+    - run: npm run cover
       env:
         CI: true
     - name: Upload coverage to Codecov
